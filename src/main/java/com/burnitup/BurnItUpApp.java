@@ -11,10 +11,10 @@ public class BurnItUpApp {
 
         // loop to select or create user
         while (true) {
-            // select or create user
+            // select or create user by calling selectOrCreateUser() method
             User user = selectOrCreateUser(scanner);
 
-            // display user information
+            // display user information for selected user
             System.out.println("\nSelected User: " + user.getName());
             System.out.println(user.getAge() + " years old, " + user.getGender() + ", " + user.getWeight() + " pounds, " + user.getHeight() + " inches\n");
 
@@ -36,12 +36,12 @@ public class BurnItUpApp {
         System.out.println("\nExiting Burn It Up App. Goodbye!\n");
     }
 
-    // greet user
+    // greet user method
     private static void greetUser() {
         System.out.println("\nWelcome to Burn It Up App!\n");
     }
 
-    // select or create user
+    // select or create user method
     private static User selectOrCreateUser(Scanner scanner) {
         User user = null;
         while (user == null) {
@@ -51,8 +51,11 @@ public class BurnItUpApp {
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
+            // if 1, then select user. if user does not exist, create new user
+            // if 2, then create new user
             if (choice == 1) {
                 user = selectUser(scanner);
+                // if user does not exist, create new user
                 if (user == null) {
                     System.out.println("Please create a new user.");
                     user = createUser(scanner);
@@ -66,10 +69,11 @@ public class BurnItUpApp {
         return user;
     }
 
-    // select user
+    // select user method
     private static User selectUser(Scanner scanner) {
         System.out.println("\nEnter the name of the existing user:");
         String userName = scanner.nextLine();
+        // get user by name, if user does not exist, return null
         User user = userService.getUser(userName);
         if (user != null) {
             return user;
@@ -79,10 +83,11 @@ public class BurnItUpApp {
         }
     }
 
-    // create user
+    // create user method
     private static User createUser(Scanner scanner) {
         System.out.println("\nPlease fill out the following fields to Create a New User:");
 
+        // get the user's name, if not a string then reprompt user
         String name = "";
         while (true) {
             System.out.print("Name: ");
@@ -94,6 +99,7 @@ public class BurnItUpApp {
             }
         }
 
+        // get the user's gender, if not Male or Female then reprompt user
         String gender = "";
         while (true) {
             System.out.print("Gender: ");
@@ -105,6 +111,7 @@ public class BurnItUpApp {
             }
         }
 
+        // get the user's weight, if not a double then reprompt user
         double weight = 0;
         while (true) {
             System.out.print("Weight (pounds): ");
@@ -117,6 +124,7 @@ public class BurnItUpApp {
             }
         }
 
+        // get the user's height, if not an int then reprompt user
         int height = 0;
         while (true) {
             System.out.print("Height (inches): ");
@@ -129,6 +137,7 @@ public class BurnItUpApp {
             }
         }
 
+        // get the user's age, if not an int then reprompt user
         int age = 0;
         while (true) {
             System.out.print("Age: ");
@@ -143,8 +152,8 @@ public class BurnItUpApp {
 
         scanner.nextLine(); // Consume newline after reading int
 
-        User user = new User(name, gender, weight, height, age);
-        userService.addUser(user);
+        User user = new User(name, gender, weight, height, age); // create new user object with inputted fields
+        userService.addUser(user); // add user to the collection
         return user;
     }
 }
