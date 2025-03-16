@@ -1,5 +1,7 @@
 package com.burnitup.gui;
 
+import com.burnitup.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,8 +9,13 @@ public class MainFrame extends JFrame {
 
     private JPanel mainPanel;
     private CardLayout cardLayout;
+    private UserService userService;
+    private LogService logService;
 
     public MainFrame() {
+        userService = new UserService();
+        logService = new LogService();
+
         setTitle("Burn It Up - Calorie Tracker");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
